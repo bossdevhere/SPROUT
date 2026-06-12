@@ -239,7 +239,7 @@ class _TasksScreenState extends State<TasksScreen> {
           onReward: (amount) {
             userProvider.addStars(amount);
             if (amount == 50) {
-              userProvider.updateStreak(userProvider.userProgress.streak + 1);
+              userProvider.completeTasks();
             }
           },
         );
@@ -251,7 +251,7 @@ class _TasksScreenState extends State<TasksScreen> {
         onReward: (amount) {
           userProvider.addStars(amount);
           if (amount == 50) {
-            userProvider.updateStreak(userProvider.userProgress.streak + 1);
+            userProvider.completeTasks();
           }
         },
       );

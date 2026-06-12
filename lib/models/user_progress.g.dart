@@ -20,15 +20,16 @@ class UserProgressAdapter extends TypeAdapter<UserProgress> {
       name: fields[0] as String,
       stars: fields[1] as int,
       streak: fields[2] as int,
-      lastLoginDate: fields[3] as DateTime?,
+      lastLoginDate: fields[3] as DateTime,
       unlockedBadges: (fields[4] as List).cast<String>(),
+      lastCompletionDate: fields[5] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserProgress obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class UserProgressAdapter extends TypeAdapter<UserProgress> {
       ..writeByte(3)
       ..write(obj.lastLoginDate)
       ..writeByte(4)
-      ..write(obj.unlockedBadges);
+      ..write(obj.unlockedBadges)
+      ..writeByte(5)
+      ..write(obj.lastCompletionDate);
   }
 
   @override

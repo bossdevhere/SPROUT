@@ -4,8 +4,11 @@ import 'package:sprout/features/home/home_screen.dart';
 import 'package:sprout/features/stories/stories_screen.dart';
 import 'package:sprout/features/quizzes/quiz_screen.dart';
 import 'package:sprout/features/quizzes/math_quiz_screen.dart';
+import 'package:sprout/features/quizzes/animal_sound_quiz_screen.dart';
+import 'package:sprout/features/quizzes/count_stars_screen.dart';
 import 'package:sprout/features/rewards/rewards_screen.dart';
 import 'package:sprout/features/customization/customization_screen.dart';
+import 'package:sprout/features/splash/splash_screen.dart';
 
 import 'package:sprout/features/tasks/tasks_screen.dart';
 
@@ -15,8 +18,12 @@ final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>()
 class AppRouter {
   static final router = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: '/',
+    initialLocation: '/splash',
     routes: [
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => const SplashScreen(),
+      ),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
@@ -62,6 +69,16 @@ class AppRouter {
           );
           return MathQuizScreen(operation: operation);
         },
+      ),
+      GoRoute(
+        path: '/animal-sound-quiz',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const AnimalSoundQuizScreen(),
+      ),
+      GoRoute(
+        path: '/count-the-stars',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const CountStarsScreen(),
       ),
     ],
   );

@@ -8,10 +8,10 @@ import 'package:sprout/services/storage_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize Storage Service
   await StorageService.init();
-  
+
   runApp(
     MultiProvider(
       providers: [

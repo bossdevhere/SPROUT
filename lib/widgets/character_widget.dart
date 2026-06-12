@@ -74,6 +74,18 @@ class CharacterWidget extends StatelessWidget {
               ),
               child: Stack(
                 children: [
+                  // Rosy Cheeks
+                  Positioned(
+                    top: size * 0.28,
+                    left: size * 0.08,
+                    child: _buildBlush(size),
+                  ),
+                  Positioned(
+                    top: size * 0.28,
+                    right: size * 0.08,
+                    child: _buildBlush(size),
+                  ),
+
                   // Eyes
                   Positioned(
                     top: size * 0.18,
@@ -85,19 +97,34 @@ class CharacterWidget extends StatelessWidget {
                     right: size * 0.12,
                     child: _buildEye(size),
                   ),
+
+                  // Eyebrows
+                  Positioned(
+                    top: size * 0.13,
+                    left: size * 0.12,
+                    child: _buildEyebrow(size),
+                  ),
+                  Positioned(
+                    top: size * 0.13,
+                    right: size * 0.12,
+                    child: _buildEyebrow(size),
+                  ),
                   
                   // Smile
                   Positioned(
-                    bottom: size * 0.12,
+                    bottom: size * 0.1,
                     left: size * 0.15,
                     right: size * 0.15,
-                    child: Container(
-                      height: size * 0.05,
-                      decoration: const BoxDecoration(
-                        color: Colors.black26,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(100),
-                          bottomRight: Radius.circular(100),
+                    child: Center(
+                      child: Container(
+                        width: size * 0.15,
+                        height: size * 0.08,
+                        decoration: BoxDecoration(
+                          color: Colors.redAccent.withValues(alpha: 0.4),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(100),
+                            bottomRight: Radius.circular(100),
+                          ),
                         ),
                       ),
                     ),
@@ -160,24 +187,40 @@ class CharacterWidget extends StatelessWidget {
         .moveY(
           begin: 0,
           end: -10,
-          duration: 2000.ms,
+          duration: 1500.ms,
           curve: Curves.easeInOut,
         )
         .scale(
           begin: const Offset(1, 1),
-          end: const Offset(1.02, 1.02),
-          duration: 2000.ms,
+          end: const Offset(1.05, 0.95), // Breathing/Squashing effect
+          duration: 1500.ms,
           curve: Curves.easeInOut,
         );
   }
 
   Widget _buildEye(double size) {
     return Container(
-      width: size * 0.06,
-      height: size * 0.06,
+      width: size * 0.08,
+      height: size * 0.08,
       decoration: const BoxDecoration(
         color: Colors.black87,
         shape: BoxShape.circle,
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: 2,
+            left: 2,
+            child: Container(
+              width: size * 0.02,
+              height: size * 0.02,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+        ],
       ),
     )
     .animate(
@@ -186,14 +229,40 @@ class CharacterWidget extends StatelessWidget {
     .scaleY(
       begin: 1.0,
       end: 0.1,
-      duration: 200.ms,
-      delay: 3000.ms,
+      duration: 150.ms,
+      delay: 4000.ms,
     )
     .then()
     .scaleY(
       begin: 0.1,
       end: 1.0,
-      duration: 200.ms,
+      duration: 150.ms,
     );
+  }
+
+  Widget _buildBlush(double size) {
+    return Container(
+      width: size * 0.08,
+      height: size * 0.04,
+      decoration: BoxDecoration(
+        color: Colors.pinkAccent.withValues(alpha: 0.2),
+        borderRadius: BorderRadius.circular(size * 0.04),
+      ),
+    ).animate(
+      onPlay: (controller) => isAnimated ? controller.repeat(reverse: true) : null,
+    ).fadeIn(duration: 2000.ms);
+  }
+
+  Widget _buildEyebrow(double size) {
+    return Container(
+      width: size * 0.08,
+      height: size * 0.015,
+      decoration: BoxDecoration(
+        color: Color(customization.hairColor).withValues(alpha: 0.7),
+        borderRadius: BorderRadius.circular(size * 0.01),
+      ),
+    ).animate(
+      onPlay: (controller) => isAnimated ? controller.repeat(reverse: true) : null,
+    ).moveY(begin: 0, end: -3, duration: 1500.ms);
   }
 }

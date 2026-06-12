@@ -19,12 +19,16 @@ class UserProgress extends HiveObject {
   @HiveField(4)
   List<String> unlockedBadges;
 
+  @HiveField(5)
+  DateTime? lastCompletionDate;
+
   UserProgress({
     this.name = 'My Friend',
     this.stars = 0,
     this.streak = 0,
     DateTime? lastLoginDate,
     this.unlockedBadges = const [],
+    this.lastCompletionDate,
   }) : lastLoginDate = lastLoginDate ?? DateTime.now();
 
   UserProgress copyWith({
@@ -33,6 +37,7 @@ class UserProgress extends HiveObject {
     int? streak,
     DateTime? lastLoginDate,
     List<String>? unlockedBadges,
+    DateTime? lastCompletionDate,
   }) {
     return UserProgress(
       name: name ?? this.name,
@@ -40,6 +45,7 @@ class UserProgress extends HiveObject {
       streak: streak ?? this.streak,
       lastLoginDate: lastLoginDate ?? this.lastLoginDate,
       unlockedBadges: unlockedBadges ?? this.unlockedBadges,
+      lastCompletionDate: lastCompletionDate ?? this.lastCompletionDate,
     );
   }
 }

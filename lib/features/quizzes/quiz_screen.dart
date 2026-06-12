@@ -12,10 +12,8 @@ class QuizScreen extends StatelessWidget {
       {'title': 'Subtraction', 'icon': Icons.remove_rounded, 'color': AppColors.skyBlue, 'route': '/math-quiz/subtraction'},
       {'title': 'Multiplication', 'icon': Icons.close_rounded, 'color': AppColors.mintGreen, 'route': '/math-quiz/multiplication'},
       {'title': 'Division', 'icon': Icons.horizontal_rule_rounded, 'color': AppColors.warmYellow, 'route': '/math-quiz/division'},
-      {'title': 'Color Match', 'icon': Icons.palette_rounded, 'color': AppColors.colorHunt},
-      {'title': 'Count the Stars', 'icon': Icons.star_rounded, 'color': AppColors.starGold},
-      {'title': 'Shape Hunt', 'icon': Icons.category_rounded, 'color': AppColors.skyBlue},
-      {'title': 'Animal Sounds', 'icon': Icons.pets_rounded, 'color': AppColors.nature},
+      {'title': 'Count the Stars', 'icon': Icons.star_rounded, 'color': AppColors.starGold, 'route': '/count-the-stars'},
+      {'title': 'Animal Sounds', 'icon': Icons.pets_rounded, 'color': AppColors.nature, 'route': '/animal-sound-quiz'},
     ];
 
     return Scaffold(

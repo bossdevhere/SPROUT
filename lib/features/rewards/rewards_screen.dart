@@ -24,13 +24,9 @@ class RewardsScreen extends StatelessWidget {
           children: [
             _buildTotalStarsCard(userProgress.stars),
             const SizedBox(height: 32),
-            _buildSectionTitle('My Badges'),
-            const SizedBox(height: 16),
-            _buildBadgesGrid(userProgress.unlockedBadges),
-            const SizedBox(height: 32),
             _buildSectionTitle('Achievements'),
             const SizedBox(height: 16),
-            _buildAchievementsList(userProgress.streak),
+            _buildAchievementsList(userProgress.streak, userProgress.stars),
           ],
         ),
       ),
@@ -92,58 +88,7 @@ class RewardsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBadgesGrid(List<String> unlockedBadges) {
-    final List<Map<String, dynamic>> allBadges = [
-      {'id': 'explorer', 'name': 'Nature Explorer', 'icon': Icons.forest_rounded, 'color': AppColors.nature},
-      {'id': 'artist', 'name': 'Color Expert', 'icon': Icons.palette_rounded, 'color': AppColors.colorHunt},
-      {'id': 'helper', 'name': 'Home Hero', 'icon': Icons.volunteer_activism_rounded, 'color': AppColors.homeHelper},
-      {'id': 'dancer', 'name': 'Star Dancer', 'icon': Icons.music_note_rounded, 'color': AppColors.softPurple},
-    ];
-
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
-        childAspectRatio: 1,
-      ),
-      itemCount: allBadges.length,
-      itemBuilder: (context, index) {
-        final badge = allBadges[index];
-        
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: Colors.black12),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                badge['icon'],
-                size: 50,
-                color: badge['color'] as Color,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                badge['name'],
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.darkText,
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildAchievementsList(int streak) {
+  Widget _buildAchievementsList(int streak, int stars) {
     return Column(
       children: [
         _buildAchievementItem(
@@ -156,8 +101,8 @@ class RewardsScreen extends StatelessWidget {
         _buildAchievementItem(
           'Star Collector',
           'Earn 500 stars',
-          0.4, // Placeholder
-          '200/500',
+          stars / 500,
+          '$stars/500',
         ),
       ],
     );

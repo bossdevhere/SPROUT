@@ -21,17 +21,16 @@ class UserProvider extends ChangeNotifier {
   void _checkStreak() {
     final now = DateTime.now();
     final lastLogin = _userProgress.lastLoginDate;
+    final lastCompletion = _userProgress.lastCompletionDate;
     
     if (_isSameDay(lastLogin, now)) {
       return;
     }
 
     final yesterday = now.subtract(const Duration(days: 1));
-    if (_isSameDay(lastLogin, yesterday)) {
-      // Streak continues! (Wait, we should only increment if they completed tasks, 
-      // but the requirement is "Track consecutive days". Let's increment on login if they did tasks yesterday)
-      // For simplicity, let's just update the last login date now.
-    } else if (now.difference(lastLogin).inDays > 1) {
+    
+    // If they logged in yesterday but didn't complete tasks, or if they haven't logged in for more than a day
+    if (!_isSameDay(lastCompletion ?? DateTime(2000), yesterday)) {
       _userProgress = _userProgress.copyWith(streak: 0);
     }
     
@@ -55,6 +54,16 @@ class UserProvider extends ChangeNotifier {
 
   Future<void> addStars(int amount) async {
     _userProgress = _userProgress.copyWith(stars: _userProgress.stars + amount);
+    await StorageService.saveUserProgress(_userProgress);
+    notifyListeners();
+  }
+
+  Future<void> completeTasks() async {
+    final now = DateTime.now();
+    _userProgress = _userProgress.copyWith(
+      streak: _userProgress.streak + 1,
+      lastCompletionDate: now,
+    );
     await StorageService.saveUserProgress(_userProgress);
     notifyListeners();
   }

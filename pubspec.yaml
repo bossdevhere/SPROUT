@@ -42,6 +42,9 @@ dependencies:
   image_picker: ^1.1.2
   lottie: ^3.3.0
   flutter_animate: ^4.5.2
+  audioplayers: ^6.1.0
+  video_player: ^2.10.1
+  chewie: ^1.13.1
 
 dev_dependencies:
   flutter_test:
@@ -61,8 +64,12 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - lib/datarequired/animals/animalimages/
+    - lib/datarequired/animals/animalsounds/
+    - lib/datarequired/stories/
 
-  # The following line ensures that the Material Icons font is
+# The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true

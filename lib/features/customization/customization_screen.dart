@@ -43,6 +43,30 @@ class CustomizationScreen extends StatelessWidget {
               ),
               child: ListView(
                 children: [
+                  _buildSectionTitle('My Name'),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Enter your name',
+                      filled: true,
+                      fillColor: Colors.black.withValues(alpha: 0.05),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none,
+                      ),
+                      prefixIcon: const Icon(Icons.person_rounded, color: AppColors.softPurple),
+                    ),
+                    controller: TextEditingController(text: userProvider.userProgress.name)
+                      ..selection = TextSelection.fromPosition(
+                        TextPosition(offset: userProvider.userProgress.name.length),
+                      ),
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        userProvider.updateName(value);
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 24),
+
                   _buildSectionTitle('Hair Color'),
                   _buildColorPicker(
                     selectedColor: Color(customization.hairColor),
